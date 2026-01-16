@@ -88,6 +88,11 @@ set_seed(42)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")
 
+# Check GPU memory if available
+if torch.cuda.is_available():
+    gpu_mem = torch.cuda.get_device_properties(0).total_memory / 1e9
+    print(f"GPU Memory: {gpu_mem:.1f} GB")
+
 
 # =============================================================================
 # DATA LOADING AND PREPROCESSING
@@ -302,7 +307,7 @@ class LSTMRegressor(nn.Module):
     LSTM-based Time-Series Regressor.
     
     Architecture:
-        - Bidirectional LSTM for temporal feature extraction
+        - Bidirectional LSTM for temporal feature extraction (NOT wrapped by PAI)
         - Linear layers for regression (these receive dendrites)
         - Single output for next-step prediction
     
@@ -318,7 +323,8 @@ class LSTMRegressor(nn.Module):
         self.hidden_size = hidden_size
         self.num_layers = num_layers
         
-        # Bidirectional LSTM
+        # Bidirectional LSTM - marked as unwrapped for PAI
+        # PAI will skip this module and not add dendrites to it
         self.lstm = nn.LSTM(
             input_size=input_size,
             hidden_size=hidden_size,
@@ -327,6 +333,10 @@ class LSTMRegressor(nn.Module):
             dropout=dropout if num_layers > 1 else 0,
             bidirectional=True
         )
+        # Mark LSTM module and all its parameters as unwrapped so PAI skips them
+        self.lstm.pai_unwrapped = True
+        for param in self.lstm.parameters():
+            param.pai_unwrapped = True
         
         # Regression head with Linear layers (these get dendrites)
         self.fc1 = nn.Linear(hidden_size * 2, hidden_size)
@@ -460,7 +470,8 @@ def train_baseline_regression(model, train_loader, val_loader, device,
     
     history = {'train_loss': [], 'val_loss': [], 'val_mae': [], 'val_rmse': []}
     
-    for epoch in tqdm(range(epochs), desc=f"Training {model_name}"):
+    pbar = tqdm(range(epochs), desc=f"Training {model_name}")
+    for epoch in pbar:
         # Training
         model.train()
         train_loss = 0
@@ -500,10 +511,18 @@ def train_baseline_regression(model, train_loader, val_loader, device,
         history['val_mae'].append(metrics['mae'])
         history['val_rmse'].append(metrics['rmse'])
         
+        # Update progress bar with metrics
+        pbar.set_postfix({
+            'train_loss': f'{train_loss:.4f}',
+            'val_loss': f'{val_loss:.4f}',
+            'MAE': f'{metrics["mae"]:.4f}',
+            'RMSE': f'{metrics["rmse"]:.4f}'
+        })
+        
         scheduler.step(val_loss)
         
         if early_stopping(val_loss, model, epoch):
-            print(f"\nEarly stopping at epoch {epoch+1}")
+            print(f"\n  Early stopping at epoch {epoch+1}")
             break
     
     early_stopping.restore_best(model)
@@ -554,12 +573,18 @@ def train_dendritic_regression(model, train_loader, val_loader, device,
     except:
         pass
     
+    # Mark LSTM parameters as unwrapped BEFORE initializing PAI
+    # This prevents PAI from trying to add parameter_type to LSTM params
+    for name, param in model.named_parameters():
+        if 'lstm' in name:
+            param.pai_unwrapped = True
+    
     # Initialize PAI - IMPORTANT: maximizing_score=False for regression (lower is better)
     model = UPA.initialize_pai(model, maximizing_score=False)
     model = model.to(device)
     
     pb_available = GPA.pc.get_perforated_backpropagation()
-    if pb_available:
+    if (pb_available):
         print("🔥 Perforated Backpropagation ENABLED")
     else:
         print("📊 Using Gradient Descent Dendrites")
@@ -576,7 +601,8 @@ def train_dendritic_regression(model, train_loader, val_loader, device,
     best_epoch = 0
     dendrite_additions = []
     
-    for epoch in tqdm(range(epochs), desc=f"Training {model_name}"):
+    pbar = tqdm(range(epochs), desc=f"Training {model_name}")
+    for epoch in pbar:
         # Training
         model.train()
         train_loss = 0
@@ -633,8 +659,15 @@ def train_dendritic_regression(model, train_loader, val_loader, device,
             best_val_loss = val_loss
             best_epoch = epoch
         
-        # PAI validation score (use negative loss since PAI expects higher=better by default)
-        # But we initialized with maximizing_score=False, so we pass loss directly
+        # Update progress bar with metrics
+        pbar.set_postfix({
+            'train_loss': f'{train_loss:.4f}',
+            'val_loss': f'{val_loss:.4f}',
+            'MAE': f'{metrics["mae"]:.4f}',
+            'RMSE': f'{metrics["rmse"]:.4f}'
+        })
+        
+        # PAI validation score
         model, restructured, training_complete = GPA.pai_tracker.add_validation_score(val_loss, model)
         model = model.to(device)
         
@@ -644,7 +677,7 @@ def train_dendritic_regression(model, train_loader, val_loader, device,
                 'val_loss': val_loss,
                 'params': count_parameters(model)
             })
-            print(f"\n✓ Dendrites added at epoch {epoch+1}! Params: {count_parameters(model):,}")
+            print(f"\n  ✓ Dendrites added at epoch {epoch+1}! Params: {count_parameters(model):,}")
             optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
             scheduler = ReduceLROnPlateau(optimizer, mode='min', patience=5, factor=0.5)
             GPA.pai_tracker.set_optimizer_instance(optimizer)
@@ -652,7 +685,7 @@ def train_dendritic_regression(model, train_loader, val_loader, device,
         scheduler.step(val_loss)
         
         if training_complete:
-            print(f"\n✓ PAI Training complete at epoch {epoch+1}")
+            print(f"\n  ✓ PAI Training complete at epoch {epoch+1}")
             break
     
     history['best_val_loss'] = best_val_loss
@@ -921,13 +954,24 @@ def main():
     
     # Training configurations
     WINDOW_SIZE = 60  # 60 minutes of history
-    BATCH_SIZE = 64
+    BATCH_SIZE = 256  # Increased from 64 for faster GPU training
     LEARNING_RATE = 0.001
     EPOCHS = 50
     DROPOUT = 0.2
     
     # Data sampling (use 10% for faster training, adjust as needed)
     SAMPLE_FRACTION = 0.1
+    
+    # Adjust batch size based on available GPU memory
+    if torch.cuda.is_available():
+        gpu_mem = torch.cuda.get_device_properties(0).total_memory / 1e9
+        if gpu_mem >= 16:
+            BATCH_SIZE = 512
+        elif gpu_mem >= 8:
+            BATCH_SIZE = 256
+        else:
+            BATCH_SIZE = 128
+        print(f"Using batch size: {BATCH_SIZE} (based on {gpu_mem:.1f}GB GPU memory)")
     
     # Load and preprocess data
     df, feature_cols, target_col = load_power_consumption_data(DATA_PATH, SAMPLE_FRACTION)
@@ -981,9 +1025,9 @@ def main():
     print(f"  Test: {len(test_dataset):,}")
     
     # Create data loaders
-    train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
-    test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=4)
+    val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=4)
+    test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=4)
     
     # Create daily profile dataset for clustering
     print("\nCreating daily profile dataset for clustering...")
