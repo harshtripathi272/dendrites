@@ -1,0 +1,2064 @@
+(base) pranshu@SJP-DIT400TR-55L:~/elephant_detection/PyTorch$ python train3.py
+✓ PDB debugger disabled globally (prevents PAI breakpoints)
+✓ PAI License credentials loaded
+Using device: cuda
+
+======================================================================
+  ECG5000 ARRHYTHMIA CLASSIFICATION - DENDRITIC NEURAL NETWORK
+  4-Model Comparison: Full vs Compressed × Baseline vs Dendrites
+======================================================================
+
+============================================================
+LOADING ECG5000 DATASET
+============================================================
+Train samples: 500
+Test samples: 4500
+Sequence length: 140
+Number of classes: 5
+
+Class distribution (Train):
+  Class 1: 292 (58.4%)
+  Class 2: 177 (35.4%)
+  Class 3: 10 (2.0%)
+  Class 4: 19 (3.8%)
+  Class 5: 2 (0.4%)
+
+Class distribution (Test):
+  Class 1: 2627 (58.4%)
+  Class 2: 1590 (35.3%)
+  Class 3: 86 (1.9%)
+  Class 4: 175 (3.9%)
+  Class 5: 22 (0.5%)
+
+⚠️  SEVERE CLASS IMBALANCE DETECTED
+   Class weight ratios (balanced):
+     Class 1: 0.34x
+     Class 2: 0.56x
+     Class 3: 10.00x
+     Class 4: 5.26x
+     Class 5: 50.00x
+
+Data range: [-5.80, 4.06]
+
+Final splits:
+  Train: 400
+  Val: 100
+  Test: 4500
+
+======================================================================
+  MODEL 1: FULL BASELINE (Standard PyTorch)
+======================================================================
+Parameters: 144,133
+
+============================================================
+TRAINING FULL_BASELINE (Standard PyTorch)
+============================================================
+Parameters: 144,133
+Training Full_Baseline:  79%|█████████████████████████████████████████████▊            | 79/100 [00:13<00:03,  6.42it/s]
+Early stopping at epoch 80
+Training Full_Baseline:  79%|█████████████████████████████████████████████▊            | 79/100 [00:13<00:03,  5.98it/s]
+
+📊 Full_Baseline Training Summary:
+  Total epochs: 80
+  Best val accuracy: 97.00% (epoch 77)
+
+============================================================
+EVALUATING FULL BASELINE
+============================================================
+
+📊 TEST METRICS:
+  Accuracy:          90.71%
+  Balanced Accuracy: 53.43%
+  Macro F1-Score:    53.23%
+
+🎯 PER-CLASS RECALL:
+  Class 1: 98.8%
+  Class 2: 87.2%
+  Class 3: 38.4%
+  Class 4: 38.3%
+  Class 5: 4.5%
+
+📋 Classification Report:
+              precision    recall  f1-score   support
+
+     Class 1       0.97      0.99      0.98      2627
+     Class 2       0.92      0.87      0.90      1590
+     Class 3       0.37      0.38      0.38        86
+     Class 4       0.39      0.38      0.39       175
+     Class 5       0.02      0.05      0.03        22
+
+    accuracy                           0.91      4500
+   macro avg       0.53      0.53      0.53      4500
+weighted avg       0.91      0.91      0.91      4500
+
+
+======================================================================
+  MODEL 2: FULL BASELINE + DENDRITES (Perforated AI)
+======================================================================
+
+============================================================
+TRAINING FULL_DENDRITIC (Perforated AI)
+============================================================
+Building dendrites with Perforated Backpropagation
+✓ Perforated AI library loaded
+Variable 'making_graphs' does not exist.  Ignoring set attempt.
+Running Dendrite Experiment
+🔥 Perforated Backpropagation ENABLED
+Initial parameters: 154,634
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751460976)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464912)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751465392)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751465104)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464624)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464528)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140210043145680)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807056)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807248)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807344)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807440)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807536)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807632)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807728)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807920)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Full_Dendritic:   0%|                                                                  | 0/100 [00:00<?, ?it/s]Adding validation score 3.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 0, last improved epoch 0, total epochs 0, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:   1%|▌                                                         | 1/100 [00:01<01:40,  1.02s/it]Adding validation score 48.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 1, last improved epoch 1, total epochs 1, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:   2%|█▏                                                        | 2/100 [00:01<01:34,  1.04it/s]Adding validation score 60.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 2, last improved epoch 2, total epochs 2, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:   3%|█▋                                                        | 3/100 [00:03<01:41,  1.04s/it]Adding validation score 59.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 3, last improved epoch 2, total epochs 3, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:   4%|██▎                                                       | 4/100 [00:03<01:35,  1.01it/s]Adding validation score 89.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 4, last improved epoch 4, total epochs 4, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:   5%|██▉                                                       | 5/100 [00:04<01:32,  1.02it/s]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 5, last improved epoch 5, total epochs 5, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:   6%|███▍                                                      | 6/100 [00:05<01:30,  1.04it/s]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 6, last improved epoch 5, total epochs 6, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:   7%|████                                                      | 7/100 [00:06<01:28,  1.05it/s]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 7, last improved epoch 5, total epochs 7, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:   8%|████▋                                                     | 8/100 [00:07<01:25,  1.07it/s]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 8, last improved epoch 5, total epochs 8, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:   9%|█████▏                                                    | 9/100 [00:08<01:24,  1.07it/s]Adding validation score 77.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 9, last improved epoch 5, total epochs 9, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  10%|█████▋                                                   | 10/100 [00:09<01:23,  1.08it/s]Adding validation score 83.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 10, last improved epoch 5, total epochs 10, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  11%|██████▎                                                  | 11/100 [00:10<01:27,  1.02it/s]Adding validation score 93.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 11, last improved epoch 11, total epochs 11, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  12%|██████▊                                                  | 12/100 [00:11<01:25,  1.03it/s]Adding validation score 78.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 12, last improved epoch 11, total epochs 12, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  13%|███████▍                                                 | 13/100 [00:12<01:24,  1.03it/s]Adding validation score 87.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 13, last improved epoch 11, total epochs 13, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  14%|███████▉                                                 | 14/100 [00:13<01:22,  1.04it/s]Adding validation score 78.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 14, last improved epoch 11, total epochs 14, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  15%|████████▌                                                | 15/100 [00:14<01:20,  1.06it/s]Adding validation score 92.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 15, last improved epoch 11, total epochs 15, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  16%|█████████                                                | 16/100 [00:15<01:18,  1.08it/s]Adding validation score 82.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 16, last improved epoch 11, total epochs 16, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  17%|█████████▋                                               | 17/100 [00:16<01:20,  1.04it/s]Adding validation score 84.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 17, last improved epoch 11, total epochs 17, n: 6, num_cycles: 0
+Returning True - History and last improved is hit
+Importing best Model for switch to PA...
+
+✓ Dendrites added at epoch 18! Params: 175,636
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751460976)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464912)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751465392)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751465104)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464624)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464528)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140210043145680)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807056)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807248)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807344)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807440)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807536)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807632)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807728)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807920)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Full_Dendritic:  18%|██████████▎                                              | 18/100 [00:18<01:42,  1.25s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 13 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 12, last improved epoch 12, total epochs 18, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 13 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  19%|██████████▊                                              | 19/100 [00:20<02:08,  1.59s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 26 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 13, last improved epoch 13, total epochs 19, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 26 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  20%|███████████▍                                             | 20/100 [00:23<02:26,  1.84s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 39 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 14, last improved epoch 14, total epochs 20, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 39 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  21%|███████████▉                                             | 21/100 [00:25<02:40,  2.03s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 52 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 15, last improved epoch 15, total epochs 21, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 52 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  22%|████████████▌                                            | 22/100 [00:28<02:51,  2.20s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 65 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 16, last improved epoch 16, total epochs 22, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 65 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  23%|█████████████                                            | 23/100 [00:30<02:57,  2.31s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 78 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 17, last improved epoch 17, total epochs 23, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 78 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  24%|█████████████▋                                           | 24/100 [00:33<03:07,  2.47s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 91 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 18, last improved epoch 18, total epochs 24, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 91 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  25%|██████████████▎                                          | 25/100 [00:34<02:29,  1.99s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 19, last improved epoch 19, total epochs 25, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  26%|██████████████▊                                          | 26/100 [00:35<02:02,  1.66s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 20, last improved epoch 19, total epochs 26, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  27%|███████████████▍                                         | 27/100 [00:38<02:26,  2.00s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 21, last improved epoch 19, total epochs 27, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  28%|███████████████▉                                         | 28/100 [00:41<02:44,  2.29s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 22, last improved epoch 19, total epochs 28, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  29%|████████████████▌                                        | 29/100 [00:44<02:56,  2.48s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 23, last improved epoch 19, total epochs 29, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  30%|█████████████████                                        | 30/100 [00:46<03:03,  2.62s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 24, last improved epoch 19, total epochs 30, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  31%|█████████████████▋                                       | 31/100 [00:50<03:13,  2.80s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 25, last improved epoch 19, total epochs 31, n: 6, num_cycles: 1
+Returning True - History and last improved is hit
+Switching back to N...
+Resetting committed to initial rate to False
+
+✓ Dendrites added at epoch 32! Params: 165,236
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751460976)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464912)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751465392)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751465104)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464624)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464528)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140210043145680)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807056)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807248)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807344)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807440)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807536)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807632)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807728)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807920)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Full_Dendritic:  32%|██████████████████▏                                      | 32/100 [00:53<03:29,  3.09s/it]Adding validation score 71.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 26, last improved epoch 26, total epochs 32, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  33%|██████████████████▊                                      | 33/100 [00:55<02:58,  2.66s/it]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 27, last improved epoch 27, total epochs 33, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  34%|███████████████████▍                                     | 34/100 [00:57<02:35,  2.35s/it]Adding validation score 92.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 28, last improved epoch 28, total epochs 34, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  35%|███████████████████▉                                     | 35/100 [00:58<02:18,  2.12s/it]Adding validation score 91.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 29, last improved epoch 28, total epochs 35, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  36%|████████████████████▌                                    | 36/100 [01:00<02:06,  1.98s/it]Adding validation score 89.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 30, last improved epoch 28, total epochs 36, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  37%|█████████████████████                                    | 37/100 [01:02<02:00,  1.92s/it]Adding validation score 91.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 31, last improved epoch 28, total epochs 37, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  38%|█████████████████████▋                                   | 38/100 [01:03<01:52,  1.82s/it]Adding validation score 93.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 32, last improved epoch 32, total epochs 38, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  39%|██████████████████████▏                                  | 39/100 [01:05<01:48,  1.77s/it]Adding validation score 87.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 33, last improved epoch 32, total epochs 39, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  40%|██████████████████████▊                                  | 40/100 [01:07<01:42,  1.71s/it]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 34, last improved epoch 32, total epochs 40, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  41%|███████████████████████▎                                 | 41/100 [01:08<01:39,  1.69s/it]Adding validation score 91.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 35, last improved epoch 32, total epochs 41, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  42%|███████████████████████▉                                 | 42/100 [01:10<01:36,  1.66s/it]Adding validation score 86.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 36, last improved epoch 32, total epochs 42, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  43%|████████████████████████▌                                | 43/100 [01:11<01:34,  1.66s/it]Adding validation score 87.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 37, last improved epoch 32, total epochs 43, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  44%|█████████████████████████                                | 44/100 [01:13<01:36,  1.72s/it]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 38, last improved epoch 32, total epochs 44, n: 6, num_cycles: 2
+Returning True - History and last improved is hit
+Dendrites did not improve but current tries 1 is less than max tries 2 so loading last switch and trying new Dendrites.
+Importing best Model for switch to PA...
+
+✓ Dendrites added at epoch 45! Params: 175,636
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751460976)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464912)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751465392)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751465104)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464624)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464528)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140210043145680)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807056)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807248)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807344)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807440)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807536)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807632)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807728)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807920)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Full_Dendritic:  45%|█████████████████████████▋                               | 45/100 [01:16<01:48,  1.97s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 13 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 12, last improved epoch 12, total epochs 45, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 13 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  46%|██████████████████████████▏                              | 46/100 [01:18<01:54,  2.11s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 26 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 13, last improved epoch 13, total epochs 46, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 26 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  47%|██████████████████████████▊                              | 47/100 [01:21<01:59,  2.25s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 39 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 14, last improved epoch 14, total epochs 47, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 39 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  48%|███████████████████████████▎                             | 48/100 [01:23<02:02,  2.36s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 52 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 15, last improved epoch 15, total epochs 48, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 52 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  49%|███████████████████████████▉                             | 49/100 [01:26<02:04,  2.43s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 65 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 16, last improved epoch 16, total epochs 49, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 65 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  50%|████████████████████████████▌                            | 50/100 [01:29<02:05,  2.50s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 78 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 17, last improved epoch 17, total epochs 50, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 78 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  51%|█████████████████████████████                            | 51/100 [01:32<02:07,  2.59s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 91 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 18, last improved epoch 18, total epochs 51, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 91 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  52%|█████████████████████████████▋                           | 52/100 [01:34<02:04,  2.60s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 19, last improved epoch 19, total epochs 52, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  53%|██████████████████████████████▏                          | 53/100 [01:37<02:02,  2.61s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 20, last improved epoch 19, total epochs 53, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  54%|██████████████████████████████▊                          | 54/100 [01:39<01:53,  2.48s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 21, last improved epoch 19, total epochs 54, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  55%|███████████████████████████████▎                         | 55/100 [01:41<01:46,  2.37s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 22, last improved epoch 19, total epochs 55, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  56%|███████████████████████████████▉                         | 56/100 [01:43<01:42,  2.33s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 23, last improved epoch 19, total epochs 56, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  57%|████████████████████████████████▍                        | 57/100 [01:45<01:37,  2.27s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 24, last improved epoch 19, total epochs 57, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  58%|█████████████████████████████████                        | 58/100 [01:48<01:35,  2.28s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 25, last improved epoch 19, total epochs 58, n: 6, num_cycles: 1
+Returning True - History and last improved is hit
+Switching back to N...
+Resetting committed to initial rate to False
+
+✓ Dendrites added at epoch 59! Params: 165,236
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751460976)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464912)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751465392)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751465104)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464624)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464528)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140210043145680)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807056)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807248)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807344)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807440)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807536)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807632)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807728)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807920)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Full_Dendritic:  59%|█████████████████████████████████▋                       | 59/100 [01:50<01:38,  2.41s/it]Adding validation score 77.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 26, last improved epoch 26, total epochs 59, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  60%|██████████████████████████████████▏                      | 60/100 [01:52<01:22,  2.07s/it]Adding validation score 91.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 27, last improved epoch 27, total epochs 60, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  61%|██████████████████████████████████▊                      | 61/100 [01:53<01:11,  1.82s/it]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 28, last improved epoch 27, total epochs 61, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  62%|███████████████████████████████████▎                     | 62/100 [01:54<01:02,  1.65s/it]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 29, last improved epoch 27, total epochs 62, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  63%|███████████████████████████████████▉                     | 63/100 [01:56<00:59,  1.60s/it]Adding validation score 85.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 30, last improved epoch 27, total epochs 63, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  64%|████████████████████████████████████▍                    | 64/100 [01:57<00:54,  1.51s/it]Adding validation score 87.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 31, last improved epoch 27, total epochs 64, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  65%|█████████████████████████████████████                    | 65/100 [01:58<00:50,  1.43s/it]Adding validation score 93.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 32, last improved epoch 32, total epochs 65, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  66%|█████████████████████████████████████▌                   | 66/100 [02:00<00:47,  1.39s/it]Adding validation score 87.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 33, last improved epoch 32, total epochs 66, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  67%|██████████████████████████████████████▏                  | 67/100 [02:01<00:45,  1.37s/it]Adding validation score 87.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 34, last improved epoch 32, total epochs 67, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  68%|██████████████████████████████████████▊                  | 68/100 [02:02<00:42,  1.34s/it]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 35, last improved epoch 32, total epochs 68, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  69%|███████████████████████████████████████▎                 | 69/100 [02:03<00:40,  1.32s/it]Adding validation score 89.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 36, last improved epoch 32, total epochs 69, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  70%|███████████████████████████████████████▉                 | 70/100 [02:05<00:41,  1.38s/it]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 37, last improved epoch 32, total epochs 70, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Full_Dendritic:  71%|████████████████████████████████████████▍                | 71/100 [02:06<00:38,  1.34s/it]Adding validation score 89.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 38, last improved epoch 32, total epochs 71, n: 6, num_cycles: 2
+Returning True - History and last improved is hit
+Dendrites did not improve system and 2 > 2 so returning training_complete.
+You should now exit your training loop and best_model will be your final model for inference
+before graphs
+after graphs
+after save
+
+✓ Dendrites added at epoch 72! Params: 154,634
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751460976)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464912)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751465392)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751465104)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464624)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206751464528)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140210043145680)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807056)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807248)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807344)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807440)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807536)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807632)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807728)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206749807920)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+
+✓ Training complete at epoch 72
+Training Full_Dendritic:  71%|████████████████████████████████████████▍                | 71/100 [02:08<00:52,  1.81s/it]
+
+📊 Full_Dendritic Training Summary:
+  Total epochs: 72
+  Best val accuracy: 93.00% (epoch 12)
+  Dendrite sets added: 5
+  Final parameters: 154,634
+
+============================================================
+EVALUATING FULL DENDRITIC
+============================================================
+
+📊 TEST METRICS:
+  Accuracy:          89.82%
+  Balanced Accuracy: 42.40%
+  Macro F1-Score:    44.01%
+
+🎯 PER-CLASS RECALL:
+  Class 1: 98.4%
+  Class 2: 90.3%
+  Class 3: 23.3%
+  Class 4: 0.0%
+  Class 5: 0.0%
+
+📋 Classification Report:
+              precision    recall  f1-score   support
+
+     Class 1       0.90      0.98      0.94      2627
+     Class 2       0.90      0.90      0.90      1590
+     Class 3       0.77      0.23      0.36        86
+     Class 4       0.00      0.00      0.00       175
+     Class 5       0.00      0.00      0.00        22
+
+    accuracy                           0.90      4500
+   macro avg       0.51      0.42      0.44      4500
+weighted avg       0.86      0.90      0.88      4500
+
+
+======================================================================
+  MODEL 3: COMPRESSED BASELINE (Standard PyTorch)
+======================================================================
+Parameters: 11,653
+Compression ratio: 8.1% of full model
+
+============================================================
+TRAINING COMPRESSED_BASELINE (Standard PyTorch)
+============================================================
+Parameters: 11,653
+Training Compressed_Baseline:  84%|███████████████████████████████████████████▋        | 84/100 [00:11<00:02,  7.08it/s]
+Early stopping at epoch 85
+Training Compressed_Baseline:  84%|███████████████████████████████████████████▋        | 84/100 [00:11<00:02,  7.00it/s]
+
+📊 Compressed_Baseline Training Summary:
+  Total epochs: 85
+  Best val accuracy: 92.00% (epoch 42)
+
+============================================================
+EVALUATING COMPRESSED BASELINE
+============================================================
+
+📊 TEST METRICS:
+  Accuracy:          90.18%
+  Balanced Accuracy: 42.02%
+  Macro F1-Score:    43.20%
+
+🎯 PER-CLASS RECALL:
+  Class 1: 97.9%
+  Class 2: 92.5%
+  Class 3: 19.8%
+  Class 4: 0.0%
+  Class 5: 0.0%
+
+📋 Classification Report:
+              precision    recall  f1-score   support
+
+     Class 1       0.92      0.98      0.95      2627
+     Class 2       0.88      0.92      0.90      1590
+     Class 3       0.74      0.20      0.31        86
+     Class 4       0.00      0.00      0.00       175
+     Class 5       0.00      0.00      0.00        22
+
+    accuracy                           0.90      4500
+   macro avg       0.51      0.42      0.43      4500
+weighted avg       0.86      0.90      0.88      4500
+
+
+======================================================================
+  MODEL 4: COMPRESSED BASELINE + DENDRITES (Perforated AI)
+======================================================================
+
+============================================================
+TRAINING COMPRESSED_DENDRITIC (Perforated AI)
+============================================================
+✓ Perforated AI library loaded
+Variable 'making_graphs' does not exist.  Ignoring set attempt.
+Running Dendrite Experiment
+🔥 Perforated Backpropagation ENABLED
+Initial parameters: 14,346
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949815120)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949814256)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949822800)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206209049008)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290899824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290903184)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290896272)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290907216)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Compressed_Dendritic:   0%|                                                            | 0/100 [00:00<?, ?it/s]Adding validation score 4.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 0, last improved epoch 0, total epochs 0, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:   1%|▌                                                   | 1/100 [00:00<01:31,  1.08it/s]Adding validation score 4.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 1, last improved epoch 1, total epochs 1, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:   2%|█                                                   | 2/100 [00:01<01:31,  1.07it/s]Adding validation score 46.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 2, last improved epoch 2, total epochs 2, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:   3%|█▌                                                  | 3/100 [00:02<01:30,  1.07it/s]Adding validation score 57.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 3, last improved epoch 3, total epochs 3, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:   4%|██                                                  | 4/100 [00:03<01:30,  1.06it/s]Adding validation score 57.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 4, last improved epoch 3, total epochs 4, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:   5%|██▌                                                 | 5/100 [00:04<01:35,  1.01s/it]Adding validation score 86.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 5, last improved epoch 5, total epochs 5, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:   6%|███                                                 | 6/100 [00:05<01:32,  1.02it/s]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 6, last improved epoch 6, total epochs 6, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:   7%|███▋                                                | 7/100 [00:06<01:29,  1.03it/s]Adding validation score 86.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 7, last improved epoch 6, total epochs 7, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:   8%|████▏                                               | 8/100 [00:07<01:27,  1.05it/s]Adding validation score 87.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 8, last improved epoch 6, total epochs 8, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:   9%|████▋                                               | 9/100 [00:08<01:26,  1.05it/s]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 9, last improved epoch 6, total epochs 9, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  10%|█████                                              | 10/100 [00:09<01:23,  1.08it/s]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 10, last improved epoch 10, total epochs 10, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  11%|█████▌                                             | 11/100 [00:10<01:22,  1.08it/s]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 11, last improved epoch 10, total epochs 11, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  12%|██████                                             | 12/100 [00:11<01:20,  1.09it/s]Adding validation score 87.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 12, last improved epoch 10, total epochs 12, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  13%|██████▋                                            | 13/100 [00:12<01:25,  1.02it/s]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 13, last improved epoch 10, total epochs 13, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  14%|███████▏                                           | 14/100 [00:13<01:22,  1.04it/s]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 14, last improved epoch 10, total epochs 14, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  15%|███████▋                                           | 15/100 [00:14<01:20,  1.06it/s]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 15, last improved epoch 10, total epochs 15, n: 6, num_cycles: 0
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  16%|████████▏                                          | 16/100 [00:15<01:18,  1.07it/s]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 16, last improved epoch 10, total epochs 16, n: 6, num_cycles: 0
+Returning True - History and last improved is hit
+Importing best Model for switch to PA...
+
+✓ Dendrites added at epoch 17! Params: 19,732
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949815120)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949814256)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949822800)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206209049008)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290899824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290903184)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290896272)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290907216)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Compressed_Dendritic:  17%|████████▋                                          | 17/100 [00:16<01:37,  1.18s/it]Adding validation score 90.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 13 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 11, last improved epoch 11, total epochs 17, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 13 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  18%|█████████▏                                         | 18/100 [00:18<01:58,  1.44s/it]Adding validation score 90.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 26 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 12, last improved epoch 12, total epochs 18, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 26 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  19%|█████████▋                                         | 19/100 [00:21<02:17,  1.70s/it]Adding validation score 90.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 39 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 13, last improved epoch 13, total epochs 19, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 39 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  20%|██████████▏                                        | 20/100 [00:23<02:26,  1.83s/it]Adding validation score 90.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 52 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 14, last improved epoch 14, total epochs 20, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 52 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  21%|██████████▋                                        | 21/100 [00:25<02:31,  1.91s/it]Adding validation score 90.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 65 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 15, last improved epoch 15, total epochs 21, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 65 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  22%|███████████▏                                       | 22/100 [00:27<02:31,  1.94s/it]Adding validation score 90.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 78 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 16, last improved epoch 16, total epochs 22, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 78 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  23%|███████████▋                                       | 23/100 [00:29<02:30,  1.95s/it]Adding validation score 90.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 91 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 17, last improved epoch 17, total epochs 23, n: 6, num_cycles: 1
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 91 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  24%|████████████▏                                      | 24/100 [00:31<02:29,  1.96s/it]Adding validation score 90.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 18, last improved epoch 18, total epochs 24, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  25%|████████████▊                                      | 25/100 [00:33<02:28,  1.98s/it]Adding validation score 90.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 19, last improved epoch 19, total epochs 25, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  26%|█████████████▎                                     | 26/100 [00:35<02:28,  2.00s/it]Adding validation score 90.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 20, last improved epoch 19, total epochs 26, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  27%|█████████████▊                                     | 27/100 [00:37<02:22,  1.96s/it]Adding validation score 90.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 21, last improved epoch 19, total epochs 27, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  28%|██████████████▎                                    | 28/100 [00:39<02:18,  1.92s/it]Adding validation score 90.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 22, last improved epoch 19, total epochs 28, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  29%|██████████████▊                                    | 29/100 [00:41<02:14,  1.90s/it]Adding validation score 90.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 23, last improved epoch 19, total epochs 29, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  30%|███████████████▎                                   | 30/100 [00:42<02:12,  1.89s/it]Adding validation score 90.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 24, last improved epoch 19, total epochs 30, n: 6, num_cycles: 1
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  31%|███████████████▊                                   | 31/100 [00:44<02:06,  1.83s/it]Adding validation score 90.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 25, last improved epoch 19, total epochs 31, n: 6, num_cycles: 1
+Returning True - History and last improved is hit
+Switching back to N...
+Resetting committed to initial rate to False
+
+✓ Dendrites added at epoch 32! Params: 17,092
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949815120)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949814256)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949822800)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206209049008)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290899824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290903184)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290896272)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290907216)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Compressed_Dendritic:  32%|████████████████▎                                  | 32/100 [00:47<02:20,  2.07s/it]Adding validation score 91.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 26, last improved epoch 26, total epochs 32, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  33%|████████████████▊                                  | 33/100 [00:48<02:02,  1.83s/it]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 27, last improved epoch 26, total epochs 33, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  34%|█████████████████▎                                 | 34/100 [00:49<01:48,  1.65s/it]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 28, last improved epoch 26, total epochs 34, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  35%|█████████████████▊                                 | 35/100 [00:51<01:39,  1.53s/it]Adding validation score 87.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 29, last improved epoch 26, total epochs 35, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  36%|██████████████████▎                                | 36/100 [00:52<01:32,  1.44s/it]Adding validation score 85.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 30, last improved epoch 26, total epochs 36, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  37%|██████████████████▊                                | 37/100 [00:53<01:26,  1.37s/it]Adding validation score 86.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 31, last improved epoch 26, total epochs 37, n: 6, num_cycles: 2
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  38%|███████████████████▍                               | 38/100 [00:54<01:22,  1.33s/it]Adding validation score 86.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 32, last improved epoch 26, total epochs 38, n: 6, num_cycles: 2
+Returning True - History and last improved is hit
+Importing best Model for switch to PA...
+
+✓ Dendrites added at epoch 39! Params: 22,531
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949815120)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949814256)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949822800)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206209049008)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290899824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290903184)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290896272)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290907216)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Compressed_Dendritic:  39%|███████████████████▉                               | 39/100 [00:57<01:39,  1.63s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 13 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 27, last improved epoch 27, total epochs 39, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 13 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  40%|████████████████████▍                              | 40/100 [00:59<01:55,  1.92s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 26 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 28, last improved epoch 28, total epochs 40, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 26 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  41%|████████████████████▉                              | 41/100 [01:02<02:02,  2.08s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 39 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 29, last improved epoch 29, total epochs 41, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 39 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  42%|█████████████████████▍                             | 42/100 [01:04<02:09,  2.24s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 52 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 30, last improved epoch 30, total epochs 42, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 52 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  43%|█████████████████████▉                             | 43/100 [01:07<02:11,  2.30s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 65 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 31, last improved epoch 31, total epochs 43, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 65 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  44%|██████████████████████▍                            | 44/100 [01:09<02:11,  2.34s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 78 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 32, last improved epoch 32, total epochs 44, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 78 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  45%|██████████████████████▉                            | 45/100 [01:12<02:14,  2.44s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 91 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 33, last improved epoch 33, total epochs 45, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 91 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  46%|███████████████████████▍                           | 46/100 [01:14<02:14,  2.49s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 34, last improved epoch 34, total epochs 46, n: 6, num_cycles: 3
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  47%|███████████████████████▉                           | 47/100 [01:17<02:11,  2.49s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 35, last improved epoch 34, total epochs 47, n: 6, num_cycles: 3
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  48%|████████████████████████▍                          | 48/100 [01:19<02:03,  2.37s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 36, last improved epoch 34, total epochs 48, n: 6, num_cycles: 3
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  49%|████████████████████████▉                          | 49/100 [01:21<01:56,  2.29s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 37, last improved epoch 34, total epochs 49, n: 6, num_cycles: 3
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  50%|█████████████████████████▌                         | 50/100 [01:23<01:52,  2.24s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 38, last improved epoch 34, total epochs 50, n: 6, num_cycles: 3
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  51%|██████████████████████████                         | 51/100 [01:25<01:48,  2.22s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 39, last improved epoch 34, total epochs 51, n: 6, num_cycles: 3
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  52%|██████████████████████████▌                        | 52/100 [01:28<01:48,  2.26s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 40, last improved epoch 34, total epochs 52, n: 6, num_cycles: 3
+Returning True - History and last improved is hit
+Switching back to N...
+Resetting committed to initial rate to False
+
+✓ Dendrites added at epoch 53! Params: 19,997
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949815120)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949814256)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949822800)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206209049008)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290899824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290903184)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290896272)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290907216)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Compressed_Dendritic:  53%|███████████████████████████                        | 53/100 [01:31<01:55,  2.46s/it]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 41, last improved epoch 41, total epochs 53, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  54%|███████████████████████████▌                       | 54/100 [01:32<01:41,  2.21s/it]Adding validation score 89.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 42, last improved epoch 41, total epochs 54, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  55%|████████████████████████████                       | 55/100 [01:34<01:31,  2.04s/it]Adding validation score 91.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 43, last improved epoch 43, total epochs 55, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  56%|████████████████████████████▌                      | 56/100 [01:36<01:24,  1.92s/it]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 44, last improved epoch 43, total epochs 56, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  57%|█████████████████████████████                      | 57/100 [01:37<01:18,  1.83s/it]Adding validation score 84.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 45, last improved epoch 43, total epochs 57, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  58%|█████████████████████████████▌                     | 58/100 [01:39<01:13,  1.74s/it]Adding validation score 85.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 46, last improved epoch 43, total epochs 58, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  59%|██████████████████████████████                     | 59/100 [01:40<01:09,  1.70s/it]Adding validation score 86.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 47, last improved epoch 43, total epochs 59, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  60%|██████████████████████████████▌                    | 60/100 [01:42<01:07,  1.68s/it]Adding validation score 87.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 48, last improved epoch 43, total epochs 60, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  61%|███████████████████████████████                    | 61/100 [01:44<01:04,  1.66s/it]Adding validation score 87.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 49, last improved epoch 43, total epochs 61, n: 6, num_cycles: 4
+Returning True - History and last improved is hit
+Dendrites did not improve but current tries 1 is less than max tries 2 so loading last switch and trying new Dendrites.
+Importing best Model for switch to PA...
+
+✓ Dendrites added at epoch 62! Params: 22,531
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949815120)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949814256)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949822800)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206209049008)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290899824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290903184)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290896272)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290907216)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Compressed_Dendritic:  62%|███████████████████████████████▌                   | 62/100 [01:46<01:12,  1.90s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 13 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 27, last improved epoch 27, total epochs 62, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 13 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  63%|████████████████████████████████▏                  | 63/100 [01:49<01:17,  2.10s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 26 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 28, last improved epoch 28, total epochs 63, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 26 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  64%|████████████████████████████████▋                  | 64/100 [01:51<01:23,  2.32s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 39 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 29, last improved epoch 29, total epochs 64, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 39 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  65%|█████████████████████████████████▏                 | 65/100 [01:54<01:23,  2.39s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 52 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 30, last improved epoch 30, total epochs 65, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 52 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  66%|█████████████████████████████████▋                 | 66/100 [01:56<01:21,  2.40s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 65 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 31, last improved epoch 31, total epochs 66, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 65 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  67%|██████████████████████████████████▏                | 67/100 [01:59<01:19,  2.42s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 78 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 32, last improved epoch 32, total epochs 67, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 78 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  68%|██████████████████████████████████▋                | 68/100 [02:01<01:18,  2.46s/it]Adding validation score 91.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 91 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 33, last improved epoch 33, total epochs 68, n: 6, num_cycles: 3
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 91 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  69%|███████████████████████████████████▏               | 69/100 [02:04<01:15,  2.45s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 34, last improved epoch 34, total epochs 69, n: 6, num_cycles: 3
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  70%|███████████████████████████████████▋               | 70/100 [02:06<01:12,  2.43s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 35, last improved epoch 34, total epochs 70, n: 6, num_cycles: 3
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  71%|████████████████████████████████████▏              | 71/100 [02:08<01:07,  2.32s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 36, last improved epoch 34, total epochs 71, n: 6, num_cycles: 3
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  72%|████████████████████████████████████▋              | 72/100 [02:11<01:05,  2.32s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 37, last improved epoch 34, total epochs 72, n: 6, num_cycles: 3
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  73%|█████████████████████████████████████▏             | 73/100 [02:13<01:01,  2.28s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 38, last improved epoch 34, total epochs 73, n: 6, num_cycles: 3
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  74%|█████████████████████████████████████▋             | 74/100 [02:15<00:57,  2.23s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 39, last improved epoch 34, total epochs 74, n: 6, num_cycles: 3
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  75%|██████████████████████████████████████▎            | 75/100 [02:17<00:54,  2.19s/it]Adding validation score 91.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 40, last improved epoch 34, total epochs 75, n: 6, num_cycles: 3
+Returning True - History and last improved is hit
+Switching back to N...
+Resetting committed to initial rate to False
+
+✓ Dendrites added at epoch 76! Params: 19,997
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949815120)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949814256)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949822800)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206209049008)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290899824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290903184)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290896272)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in n mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290907216)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Compressed_Dendritic:  76%|██████████████████████████████████████▊            | 76/100 [02:20<00:58,  2.42s/it]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 41, last improved epoch 41, total epochs 76, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  77%|███████████████████████████████████████▎           | 77/100 [02:22<00:51,  2.22s/it]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 42, last improved epoch 41, total epochs 77, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  78%|███████████████████████████████████████▊           | 78/100 [02:23<00:45,  2.05s/it]Adding validation score 92.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 43, last improved epoch 43, total epochs 78, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  79%|████████████████████████████████████████▎          | 79/100 [02:25<00:40,  1.92s/it]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 44, last improved epoch 43, total epochs 79, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  80%|████████████████████████████████████████▊          | 80/100 [02:27<00:36,  1.82s/it]Adding validation score 86.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 45, last improved epoch 43, total epochs 80, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  81%|█████████████████████████████████████████▎         | 81/100 [02:28<00:33,  1.75s/it]Adding validation score 89.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 46, last improved epoch 43, total epochs 81, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  82%|█████████████████████████████████████████▊         | 82/100 [02:30<00:30,  1.70s/it]Adding validation score 91.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 47, last improved epoch 43, total epochs 82, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  83%|██████████████████████████████████████████▎        | 83/100 [02:31<00:28,  1.66s/it]Adding validation score 91.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 48, last improved epoch 43, total epochs 83, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  84%|██████████████████████████████████████████▊        | 84/100 [02:33<00:27,  1.70s/it]Adding validation score 93.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 49, last improved epoch 49, total epochs 84, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  85%|███████████████████████████████████████████▎       | 85/100 [02:35<00:25,  1.73s/it]Adding validation score 92.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 50, last improved epoch 49, total epochs 85, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  86%|███████████████████████████████████████████▊       | 86/100 [02:36<00:23,  1.69s/it]Adding validation score 87.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 51, last improved epoch 49, total epochs 86, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  87%|████████████████████████████████████████████▎      | 87/100 [02:38<00:21,  1.67s/it]Adding validation score 82.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 52, last improved epoch 49, total epochs 87, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  88%|████████████████████████████████████████████▉      | 88/100 [02:40<00:19,  1.66s/it]Adding validation score 85.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 53, last improved epoch 49, total epochs 88, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  89%|█████████████████████████████████████████████▍     | 89/100 [02:41<00:17,  1.62s/it]Adding validation score 88.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 54, last improved epoch 49, total epochs 89, n: 6, num_cycles: 4
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  90%|█████████████████████████████████████████████▉     | 90/100 [02:43<00:16,  1.62s/it]Adding validation score 90.00000000
+Checking PAI switch with mode n, switch mode DOING_HISTORY, epoch 55, last improved epoch 49, total epochs 90, n: 6, num_cycles: 4
+Returning True - History and last improved is hit
+Importing best Model for switch to PA...
+
+✓ Dendrites added at epoch 91! Params: 25,436
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949815120)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949814256)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140205949822800)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206209049008)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290899824)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290903184)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290896272)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+WARNING: Parameter does not have parameter_type attribute in p mode
+You can find this param by going up in the stack and calling:
+UPA.find_param_name_by_id(model,140206290907216)
+Ensure that model is either converted or tracked
+Instructions in customization.md
+Training Compressed_Dendritic:  91%|██████████████████████████████████████████████▍    | 91/100 [02:46<00:17,  1.99s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 13 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 50, last improved epoch 50, total epochs 91, n: 6, num_cycles: 5
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 13 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  92%|██████████████████████████████████████████████▉    | 92/100 [02:49<00:18,  2.29s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 26 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 51, last improved epoch 51, total epochs 92, n: 6, num_cycles: 5
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 26 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  93%|███████████████████████████████████████████████▍   | 93/100 [02:52<00:17,  2.50s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 39 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 52, last improved epoch 52, total epochs 93, n: 6, num_cycles: 5
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 39 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  94%|███████████████████████████████████████████████▉   | 94/100 [02:55<00:15,  2.64s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 52 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 53, last improved epoch 53, total epochs 94, n: 6, num_cycles: 5
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 52 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  95%|████████████████████████████████████████████████▍  | 95/100 [02:58<00:13,  2.75s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 65 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 54, last improved epoch 54, total epochs 95, n: 6, num_cycles: 5
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 65 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  96%|████████████████████████████████████████████████▉  | 96/100 [03:01<00:11,  2.80s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 78 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 55, last improved epoch 55, total epochs 96, n: 6, num_cycles: 5
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 78 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  97%|█████████████████████████████████████████████████▍ | 97/100 [03:04<00:08,  2.94s/it]Adding validation score 93.00000000
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 91 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 56, last improved epoch 56, total epochs 97, n: 6, num_cycles: 5
+You set GPA.pc.set_initial_correlation_batches() to be greater than an entire epoch 91 < 100.This can result in weights not being updated.  You should set that GPA.pc.set_initial_correlation_batches(x) to be lower than the batches in one epoch. Start over or Load from 'latest' for PAI. It was caught on layer.fc1
+If your epoch is larger than this number it means the layer is not being included in autograd backwards.
+To double check what layers are included in the backwards call set GPA.pc.set_extra_verbose(True) and look for which layers call backward and forward.
+This layer either must be included in the backward calls or included in in GPA.pc.get_module_names_to_skip() or GPA.pc.get_module_names_to_track()
+If you are here for debugging with a tiny dataset feel free to ignore (this may happen more than once)
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  98%|█████████████████████████████████████████████████▉ | 98/100 [03:07<00:05,  2.97s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 57, last improved epoch 57, total epochs 98, n: 6, num_cycles: 5
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic:  99%|██████████████████████████████████████████████████▍| 99/100 [03:10<00:02,  2.95s/it]Adding validation score 93.00000000
+Checking PAI switch with mode p, switch mode DOING_HISTORY, epoch 58, last improved epoch 57, total epochs 99, n: 6, num_cycles: 5
+Returning False - no triggers to switch have been hit
+Training Compressed_Dendritic: 100%|██████████████████████████████████████████████████| 100/100 [03:12<00:00,  1.93s/it]
+
+📊 Compressed_Dendritic Training Summary:
+  Total epochs: 100
+  Best val accuracy: 93.00% (epoch 85)
+  Dendrite sets added: 7
+  Final parameters: 25,436
+
+============================================================
+EVALUATING COMPRESSED DENDRITIC
+============================================================
+
+📊 TEST METRICS:
+  Accuracy:          91.09%
+  Balanced Accuracy: 43.90%
+  Macro F1-Score:    45.54%
+
+🎯 PER-CLASS RECALL:
+  Class 1: 99.2%
+  Class 2: 92.5%
+  Class 3: 27.9%
+  Class 4: 0.0%
+  Class 5: 0.0%
+
+📋 Classification Report:
+              precision    recall  f1-score   support
+
+     Class 1       0.92      0.99      0.95      2627
+     Class 2       0.91      0.92      0.91      1590
+     Class 3       0.77      0.28      0.41        86
+     Class 4       0.00      0.00      0.00       175
+     Class 5       0.00      0.00      0.00        22
+
+    accuracy                           0.91      4500
+   macro avg       0.52      0.44      0.46      4500
+weighted avg       0.87      0.91      0.89      4500
+
+
+======================================================================
+  FINAL RESULTS - 4 MODEL COMPARISON
+======================================================================
+
+📊 SUMMARY TABLE:
+--------------------------------------------------------------------------------
+Model                     Params       Accuracy     Macro F1     Bal. Acc
+--------------------------------------------------------------------------------
+Full_Baseline             144,133      90.71        53.23        53.43
+Full_Dendritic            154,634      89.82        44.01        42.40
+Compressed_Baseline       11,653       90.18        43.20        42.02
+Compressed_Dendritic      25,436       91.09        45.54        43.90
+--------------------------------------------------------------------------------
+
+🔥 KEY INSIGHTS:
+  1. Full Baseline → Full Dendritic: +-0.89% accuracy
+  2. Compressed Baseline → Compressed Dendritic: +0.91% accuracy
+  3. Compressed Dendritic vs Full Baseline: +0.38% accuracy
+
+  ✅ DENDRITES RECOVERED CAPACITY: Compressed + Dendrites ≥ Full Baseline!
+
+📈 Generating visualizations...
+Saved: ecg5000_accuracy_comparison.png
+Saved: ecg5000_params_vs_accuracy.png
+Saved: ecg5000_macro_f1_comparison.png
+Saved: ecg5000_confusion_matrices.png
+Saved: ecg5000_per_class_recall.png
+Saved: ecg5000_results.json
+
+======================================================================
+  HACKATHON COMPLETE!
+======================================================================
+
+🎯 Narrative: Dendrites enable smaller models to match larger ones,
+   demonstrating parameter-efficient neural architecture optimization.
+(base) pranshu@SJP-DIT400TR-55L:~/elephant_detection/PyTorch$
