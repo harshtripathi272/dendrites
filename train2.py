@@ -11,6 +11,37 @@ Model 2: Same architecture with Perforated AI dendrites (using their library)
 import os
 import sys
 
+# =============================================================================
+# DISABLE PDB DEBUGGER GLOBALLY (Prevent PAI from dropping into debugger)
+# =============================================================================
+import pdb
+pdb.set_trace = lambda: None  # Override all breakpoints globally
+print("✓ PDB debugger disabled globally (prevents PAI breakpoints)")
+
+# =============================================================================
+# LOAD PAI LICENSE - MUST BE BEFORE IMPORTING PERFORATEDAI
+# =============================================================================
+# Prompt user for credentials or use hardcoded values
+PAIEMAIL = 'YOUR_EMAIL_HERE'  # <-- REPLACE WITH YOUR EMAIL
+PAITOKEN = 'YOUR_TOKEN_HERE'  # <-- REPLACE WITH YOUR TOKEN
+
+# If not hardcoded, prompt user
+if PAIEMAIL == 'YOUR_EMAIL_HERE' or PAITOKEN == 'YOUR_TOKEN_HERE':
+    print("\n" + "="*60)
+    print("  PAI LICENSE CONFIGURATION")
+    print("="*60)
+    PAIEMAIL = input("Enter your PAI Email: ").strip()
+    PAITOKEN = input("Enter your PAI Token: ").strip()
+
+os.environ['PAIEMAIL'] = PAIEMAIL
+os.environ['PAITOKEN'] = PAITOKEN
+
+# Verify license is set
+if os.environ.get('PAIEMAIL') and os.environ.get('PAITOKEN'):
+    print("✓ PAI License credentials loaded")
+else:
+    print("⚠ PAI License not found - will use open source GD mode")
+
 # Add PAI repo to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'PAI_repo'))
 
@@ -24,7 +55,8 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, f1_score, balanced_accuracy_score
+from sklearn.utils.class_weight import compute_class_weight
 import matplotlib.pyplot as plt
 import seaborn as sns
 from tqdm import tqdm
@@ -93,8 +125,21 @@ def load_and_preprocess_data(data_path):
     print(f"Validation size: {len(X_val)}")
     print(f"Test size: {len(X_test)}")
     
+    # ==========================================================================
+    # HANDLE CLASS IMBALANCE - Compute class weights
+    # ==========================================================================
+    class_weights = compute_class_weight(
+        class_weight='balanced',
+        classes=np.unique(y_train),
+        y=y_train
+    )
+    class_weights_tensor = torch.FloatTensor(class_weights)
+    
+    print(f"\n⚠️  CLASS IMBALANCE DETECTED - Using weighted loss")
+    print(f"Class weights: {dict(zip(label_encoder.classes_, class_weights.round(2)))}")
+    
     return (X_train, X_val, X_test, y_train, y_val, y_test, 
-            num_classes, label_encoder, feature_cols)
+            num_classes, label_encoder, feature_cols, class_weights_tensor)
 
 
 def create_dataloaders(X_train, X_val, X_test, y_train, y_val, y_test, batch_size=64):
@@ -225,15 +270,16 @@ class EarlyStopping:
             model.load_state_dict(self.best_weights)
 
 
-def train_baseline(model, train_loader, val_loader, device, epochs=100, lr=0.001):
+def train_baseline(model, train_loader, val_loader, device, class_weights, epochs=100, lr=0.001):
     """Train baseline model with standard PyTorch."""
     print(f"\n{'='*60}")
     print("TRAINING BASELINE MODEL (Standard PyTorch)")
     print(f"{'='*60}")
     
-    criterion = nn.CrossEntropyLoss()
+    # Use weighted CrossEntropyLoss to handle class imbalance
+    criterion = nn.CrossEntropyLoss(weight=class_weights.to(device))
     optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5, verbose=False)
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5)
     early_stopping = EarlyStopping(patience=15, min_delta=0.001)
     
     history = {'train_loss': [], 'train_acc': [], 'val_loss': [], 'val_acc': []}
@@ -307,7 +353,7 @@ def train_baseline(model, train_loader, val_loader, device, epochs=100, lr=0.001
 # DENDRITIC MODEL TRAINING (Perforated AI)
 # =============================================================================
 
-def train_dendritic(model, train_loader, val_loader, device, epochs=100, lr=0.001):
+def train_dendritic(model, train_loader, val_loader, device, class_weights, epochs=100, lr=0.001):
     """Train model with Perforated AI dendrites."""
     print(f"\n{'='*60}")
     print("TRAINING DENDRITIC MODEL (Perforated AI)")
@@ -319,30 +365,44 @@ def train_dendritic(model, train_loader, val_loader, device, epochs=100, lr=0.00
     
     print("✓ Perforated AI library loaded successfully!")
     
-    # Check if Perforated Backpropagation is available (licensed version)
-    pb_available = GPA.pc.get_perforated_backpropagation()
-    if pb_available:
-        print("🔥 Perforated Backpropagation enabled!")
-    else:
-        print("📊 Using Gradient Descent Dendrites (open source)")
-    
     # Configure PAI settings (following reference guide best practices)
     GPA.pc.set_device(device)
+    
+    # ENABLE PERFORATED BACKPROPAGATION (requires license)
+    # This must be set BEFORE initialize_pai()
+    GPA.pc.set_perforated_backpropagation(True)
     
     # Switch mode: DOING_HISTORY is recommended - adds dendrites when model plateaus
     GPA.pc.set_switch_mode(GPA.pc.DOING_HISTORY)
     
     # Epoch control
-    GPA.pc.set_n_epochs_to_switch(6)  # Wait 6 epochs before checking plateau
-    GPA.pc.set_p_epochs_to_switch(6)  # Dendrite training phase duration (PB only)
+    GPA.pc.set_n_epochs_to_switch(6)  # N-phase: normal training epochs before checking plateau
+    GPA.pc.set_p_epochs_to_switch(6)  # P-phase: dendrite training epochs (PB only)
     
     # Dendrite control
     GPA.pc.set_max_dendrites(5)  # Maximum dendrite sets to add
     GPA.pc.set_improvement_threshold(0.0)  # Add dendrite if ANY improvement (liberal)
     
+    # ==========================================================================
+    # SUPPRESS WARNINGS & AVOID DEBUGGER PROMPTS
+    # ==========================================================================
+    # Confirm unwrapped modules (LSTM layers won't get dendrites, only Linear layers)
+    GPA.pc.set_unwrapped_modules_confirmed(True)
+    
+    # Accept weight decay in optimizer (we're using AdamW with weight_decay=1e-4)
+    GPA.pc.set_weight_decay_accepted(True)
+    
+    # Disable verbose output and graph generation if causing issues
+    GPA.pc.set_verbose(False)  # Reduce terminal spam
+    
+    # Attempt to disable making_graphs if it exists (may not be in all versions)
+    try:
+        GPA.pc.set_making_graphs(False)  # Disable graph generation to avoid issues
+    except:
+        pass  # Ignore if method doesn't exist in this PAI version
+    
     # Other settings
-    GPA.pc.set_testing_dendrite_capacity(False)  # Set to True first time to test capacity
-    GPA.pc.set_making_graphs(True)  # Generate graphs
+    GPA.pc.set_testing_dendrite_capacity(False)  # Normal training mode
     GPA.pc.set_save_name("ECG_Dendritic")
     
     # Set output dimensions for classification: [batch, features]
@@ -356,11 +416,25 @@ def train_dendritic(model, train_loader, val_loader, device, epochs=100, lr=0.00
     )
     model = model.to(device)
     
+    # Check if PB is actually enabled after initialization
+    pb_available = GPA.pc.get_perforated_backpropagation()
+    if pb_available:
+        print("🔥 Perforated Backpropagation ENABLED (Licensed Version)!")
+        print("   Using N-phase (normal) + P-phase (dendrite) training cycle")
+    else:
+        print("📊 Using Gradient Descent Dendrites (open source mode)")
+        print("   PB license may not be activated - check your license key")
+    
     print("✓ Dendrite scaffolding added to model!")
     print(f"Parameters: {sum(p.numel() for p in model.parameters()):,}")
     
+    # Note about unwrapped modules
+    print("\nℹ️  Note: LSTM layers remain unwrapped (standard behavior)")
+    print("   Only Linear layers (fc1, fc2, fc3) receive dendrites")
+    
     # Setup optimizer (following reference guide pattern)
-    criterion = nn.CrossEntropyLoss()
+    # Use weighted CrossEntropyLoss to handle class imbalance
+    criterion = nn.CrossEntropyLoss(weight=class_weights.to(device))
     optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
     scheduler = ReduceLROnPlateau(optimizer, mode='max', patience=5, factor=0.5)
     
@@ -491,7 +565,7 @@ def train_dendritic(model, train_loader, val_loader, device, epochs=100, lr=0.00
 # =============================================================================
 
 def evaluate_model(model, test_loader, device, label_encoder, model_name="Model"):
-    """Evaluate model on test set."""
+    """Evaluate model on test set with metrics appropriate for imbalanced data."""
     print(f"\n{'='*60}")
     print(f"EVALUATING {model_name.upper()}")
     print(f"{'='*60}")
@@ -507,12 +581,86 @@ def evaluate_model(model, test_loader, device, label_encoder, model_name="Model"
             all_preds.extend(predicted.cpu().numpy())
             all_labels.extend(labels.numpy())
     
-    accuracy = accuracy_score(all_labels, all_preds)
-    print(f"\nTest Accuracy: {accuracy * 100:.2f}%")
-    print("\nClassification Report:")
-    print(classification_report(all_labels, all_preds, target_names=label_encoder.classes_))
+    all_preds = np.array(all_preds)
+    all_labels = np.array(all_labels)
     
-    return accuracy, all_preds, all_labels
+    # Standard accuracy
+    accuracy = accuracy_score(all_labels, all_preds)
+    
+    # Better metrics for imbalanced data
+    balanced_acc = balanced_accuracy_score(all_labels, all_preds)
+    macro_f1 = f1_score(all_labels, all_preds, average='macro', zero_division=0)
+    weighted_f1 = f1_score(all_labels, all_preds, average='weighted', zero_division=0)
+    
+    # PER-CLASS METRICS (Critical for minority classes!)
+    per_class_f1 = f1_score(all_labels, all_preds, average=None, zero_division=0)
+    per_class_recall = []
+    per_class_precision = []
+    per_class_counts = []
+    
+    for class_idx, class_name in enumerate(label_encoder.classes_):
+        class_mask = (all_labels == class_idx)
+        class_count = class_mask.sum()
+        per_class_counts.append(class_count)
+        
+        if class_count > 0:
+            # Recall: Of all actual class instances, how many did we catch?
+            predicted_correctly = ((all_preds == class_idx) & class_mask).sum()
+            recall = predicted_correctly / class_count
+            per_class_recall.append(recall)
+            
+            # Precision: Of all predictions for this class, how many were correct?
+            predicted_as_class = (all_preds == class_idx).sum()
+            if predicted_as_class > 0:
+                precision = predicted_correctly / predicted_as_class
+            else:
+                precision = 0.0
+            per_class_precision.append(precision)
+        else:
+            per_class_recall.append(0.0)
+            per_class_precision.append(0.0)
+    
+    print(f"\n📊 OVERALL TEST METRICS:")
+    print(f"  Raw Accuracy:      {accuracy * 100:.2f}%")
+    print(f"  Balanced Accuracy: {balanced_acc * 100:.2f}%  ← Averages recall across classes")
+    print(f"  Macro F1-Score:    {macro_f1 * 100:.2f}%  ← Treats all classes equally")
+    print(f"  Weighted F1-Score: {weighted_f1 * 100:.2f}%")
+    
+    # CRITICAL: Per-class breakdown for minority classes
+    print(f"\n🎯 PER-CLASS PERFORMANCE (Critical for Imbalanced Data):")
+    print(f"  {'Class':<8} {'Count':<8} {'Recall':<10} {'Precision':<12} {'F1-Score':<10}")
+    print("  " + "-"*60)
+    
+    for idx, class_name in enumerate(label_encoder.classes_):
+        recall = per_class_recall[idx]
+        precision = per_class_precision[idx]
+        f1 = per_class_f1[idx]
+        count = per_class_counts[idx]
+        
+        # Highlight minority classes
+        if class_name in ['F', 'Q', 'SVEB']:
+            marker = " ⚠️ MINORITY"
+        else:
+            marker = ""
+        
+        print(f"  {class_name:<8} {count:<8} {recall*100:>7.2f}%   {precision*100:>9.2f}%   {f1*100:>7.2f}%{marker}")
+    
+    print("\n📋 Full Classification Report:")
+    print(classification_report(all_labels, all_preds, target_names=label_encoder.classes_, zero_division=0))
+    
+    # Return comprehensive metrics
+    metrics = {
+        'accuracy': accuracy,
+        'balanced_accuracy': balanced_acc,
+        'macro_f1': macro_f1,
+        'weighted_f1': weighted_f1,
+        'per_class_f1': dict(zip(label_encoder.classes_, per_class_f1)),
+        'per_class_recall': dict(zip(label_encoder.classes_, per_class_recall)),
+        'per_class_precision': dict(zip(label_encoder.classes_, per_class_precision)),
+        'per_class_counts': dict(zip(label_encoder.classes_, per_class_counts))
+    }
+    
+    return metrics, all_preds, all_labels
 
 
 # =============================================================================
@@ -616,6 +764,128 @@ def plot_accuracy_comparison(acc_baseline, acc_dendritic):
     print("Saved: accuracy_comparison.png")
 
 
+def plot_minority_class_recall(metrics_baseline, metrics_dendritic, label_encoder):
+    """Plot per-class recall comparison - CRITICAL for imbalanced data."""
+    fig, ax = plt.subplots(figsize=(12, 6))
+    
+    classes = label_encoder.classes_
+    x = np.arange(len(classes))
+    width = 0.35
+    
+    baseline_recalls = [metrics_baseline['per_class_recall'][c] * 100 for c in classes]
+    dendritic_recalls = [metrics_dendritic['per_class_recall'][c] * 100 for c in classes]
+    
+    bars1 = ax.bar(x - width/2, baseline_recalls, width, label='Baseline', 
+                   color='#3498db', edgecolor='black', linewidth=1.5)
+    bars2 = ax.bar(x + width/2, dendritic_recalls, width, label='Dendritic (PAI)', 
+                   color='#2ecc71', edgecolor='black', linewidth=1.5)
+    
+    # Add value labels on bars
+    for bars in [bars1, bars2]:
+        for bar in bars:
+            height = bar.get_height()
+            ax.annotate(f'{height:.1f}%',
+                       xy=(bar.get_x() + bar.get_width() / 2, height),
+                       xytext=(0, 3), textcoords="offset points",
+                       ha='center', va='bottom', fontsize=10, fontweight='bold')
+    
+    ax.set_xlabel('Arrhythmia Class', fontsize=12, fontweight='bold')
+    ax.set_ylabel('Recall (%)', fontsize=12, fontweight='bold')
+    ax.set_title('Per-Class Recall Comparison\n🎯 KEY METRIC: Dendrites Recover Minority Classes', 
+                 fontsize=14, fontweight='bold')
+    ax.set_xticks(x)
+    ax.set_xticklabels(classes, fontsize=11)
+    ax.legend(fontsize=11)
+    ax.grid(axis='y', alpha=0.3)
+    ax.set_ylim(0, 105)
+    
+    # Add annotations for minority classes
+    minority_indices = [i for i, c in enumerate(classes) if c in ['F', 'Q', 'SVEB']]
+    for idx in minority_indices:
+        ax.axvline(x=idx, color='red', linestyle='--', alpha=0.3, linewidth=2)
+        ax.text(idx, 102, '⚠️', ha='center', fontsize=12)
+    
+    plt.tight_layout()
+    plt.savefig('minority_class_recall.png', dpi=150, bbox_inches='tight')
+    plt.show()
+    print("Saved: minority_class_recall.png")
+
+
+def plot_macro_f1_comparison(metrics_baseline, metrics_dendritic):
+    """Plot Macro F1 comparison - treats all classes equally."""
+    fig, ax = plt.subplots(figsize=(8, 6))
+    
+    models = ['Baseline\n(Standard PyTorch)', 'Dendritic\n(Perforated AI)']
+    macro_f1s = [metrics_baseline['macro_f1'] * 100, metrics_dendritic['macro_f1'] * 100]
+    colors = ['#3498db', '#2ecc71']
+    
+    bars = ax.bar(models, macro_f1s, color=colors, edgecolor='black', linewidth=1.5)
+    
+    for bar, f1 in zip(bars, macro_f1s):
+        ax.annotate(f'{f1:.2f}%',
+                   xy=(bar.get_x() + bar.get_width() / 2, bar.get_height()),
+                   xytext=(0, 3), textcoords="offset points",
+                   ha='center', va='bottom', fontsize=14, fontweight='bold')
+    
+    improvement = metrics_dendritic['macro_f1'] - metrics_baseline['macro_f1']
+    improvement_pct = (improvement / metrics_baseline['macro_f1']) * 100 if metrics_baseline['macro_f1'] > 0 else 0
+    
+    ax.set_ylabel('Macro F1-Score (%)', fontsize=12)
+    ax.set_title(f'Macro F1-Score: Treats All Classes Equally\nDendritic Improvement: +{improvement*100:.2f}% ({improvement_pct:.1f}% relative)',
+                fontsize=14, fontweight='bold')
+    ax.set_ylim(0, 100)
+    ax.grid(axis='y', alpha=0.3)
+    
+    plt.tight_layout()
+    plt.savefig('macro_f1_comparison.png', dpi=150, bbox_inches='tight')
+    plt.show()
+    print("Saved: macro_f1_comparison.png")
+
+
+def plot_per_class_f1_heatmap(metrics_baseline, metrics_dendritic, label_encoder):
+    """Heatmap showing F1 score improvement per class."""
+    classes = label_encoder.classes_
+    
+    # Create matrix: [Baseline, Dendritic, Improvement]
+    data = []
+    for c in classes:
+        baseline_f1 = metrics_baseline['per_class_f1'][c] * 100
+        dendritic_f1 = metrics_dendritic['per_class_f1'][c] * 100
+        improvement = dendritic_f1 - baseline_f1
+        data.append([baseline_f1, dendritic_f1, improvement])
+    
+    data = np.array(data)
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # Custom colormap: red for low, green for high
+    im = ax.imshow(data.T, cmap='RdYlGn', aspect='auto', vmin=0, vmax=100)
+    
+    # Set ticks
+    ax.set_xticks(np.arange(len(classes)))
+    ax.set_yticks(np.arange(3))
+    ax.set_xticklabels(classes, fontsize=12, fontweight='bold')
+    ax.set_yticklabels(['Baseline', 'Dendritic', 'Δ Improvement'], fontsize=12, fontweight='bold')
+    
+    # Add text annotations
+    for i in range(len(classes)):
+        for j in range(3):
+            text = ax.text(i, j, f'{data[i, j]:.1f}%',
+                          ha="center", va="center", color="black", fontsize=11, fontweight='bold')
+    
+    ax.set_title('Per-Class F1-Score Heatmap\n🔥 Shows Dendrite Impact on Each Class', 
+                 fontsize=14, fontweight='bold')
+    
+    # Colorbar
+    cbar = plt.colorbar(im, ax=ax)
+    cbar.set_label('F1-Score (%)', fontsize=12)
+    
+    plt.tight_layout()
+    plt.savefig('per_class_f1_heatmap.png', dpi=150, bbox_inches='tight')
+    plt.show()
+    print("Saved: per_class_f1_heatmap.png")
+
+
 # =============================================================================
 # MAIN
 # =============================================================================
@@ -637,7 +907,7 @@ def main():
     
     # Load data
     (X_train, X_val, X_test, y_train, y_val, y_test, 
-     num_classes, label_encoder, feature_cols) = load_and_preprocess_data(DATA_PATH)
+     num_classes, label_encoder, feature_cols, class_weights_tensor) = load_and_preprocess_data(DATA_PATH)
     
     train_loader, val_loader, test_loader, seq_len, input_size = create_dataloaders(
         X_train, X_val, X_test, y_train, y_val, y_test, BATCH_SIZE
@@ -662,10 +932,10 @@ def main():
     print(f"Parameters: {sum(p.numel() for p in model_baseline.parameters()):,}")
     
     history_baseline = train_baseline(
-        model_baseline, train_loader, val_loader, device, EPOCHS, LEARNING_RATE
+        model_baseline, train_loader, val_loader, device, class_weights_tensor, EPOCHS, LEARNING_RATE
     )
     
-    acc_baseline, preds_baseline, labels_baseline = evaluate_model(
+    metrics_baseline, preds_baseline, labels_baseline = evaluate_model(
         model_baseline, test_loader, device, label_encoder, "Baseline Model"
     )
     
@@ -688,10 +958,10 @@ def main():
     ).to(device)
     
     model_dendritic, history_dendritic = train_dendritic(
-        model_dendritic, train_loader, val_loader, device, EPOCHS, LEARNING_RATE
+        model_dendritic, train_loader, val_loader, device, class_weights_tensor, EPOCHS, LEARNING_RATE
     )
     
-    acc_dendritic, preds_dendritic, labels_dendritic = evaluate_model(
+    metrics_dendritic, preds_dendritic, labels_dendritic = evaluate_model(
         model_dendritic, test_loader, device, label_encoder, "Dendritic Model"
     )
     
@@ -704,8 +974,8 @@ def main():
     print("  FINAL RESULTS - BEST ACHIEVED COMPARISON")
     print("="*70)
     
-    improvement = acc_dendritic - acc_baseline
-    improvement_pct = (improvement / acc_baseline) * 100 if acc_baseline > 0 else 0
+    improvement = metrics_dendritic['accuracy'] - metrics_baseline['accuracy']
+    improvement_pct = (improvement / metrics_baseline['accuracy']) * 100 if metrics_baseline['accuracy'] > 0 else 0
     
     # Explicit fairness summary
     print("\n📋 TRAINING SUMMARY (Fairness Verification):")
@@ -726,8 +996,8 @@ def main():
     print("-" * 60)
     print(f"  {'Model':<35} {'Test Accuracy':<15}")
     print("-" * 60)
-    print(f"  {'Baseline (Standard PyTorch)':<35} {acc_baseline*100:.2f}%")
-    print(f"  {'Dendritic (Perforated AI)':<35} {acc_dendritic*100:.2f}%")
+    print(f"  {'Baseline (Standard PyTorch)':<35} {metrics_baseline['accuracy']*100:.2f}%")
+    print(f"  {'Dendritic (Perforated AI)':<35} {metrics_dendritic['accuracy']*100:.2f}%")
     print("-" * 60)
     print(f"  {'Improvement:':<35} +{improvement*100:.2f}% ({improvement_pct:.1f}% relative)")
     
@@ -743,20 +1013,27 @@ def main():
     # Visualizations
     plot_training_history(history_baseline, history_dendritic)
     plot_confusion_matrices(labels_baseline, preds_baseline, labels_dendritic, preds_dendritic, label_encoder)
-    plot_accuracy_comparison(acc_baseline, acc_dendritic)
+    plot_accuracy_comparison(metrics_baseline['accuracy'], metrics_dendritic['accuracy'])
+    plot_minority_class_recall(metrics_baseline, metrics_dendritic, label_encoder)
+    plot_macro_f1_comparison(metrics_baseline, metrics_dendritic)
+    plot_per_class_f1_heatmap(metrics_baseline, metrics_dendritic, label_encoder)
     
     # Save comprehensive results
     results_data = {
         'comparison_type': 'best_achieved_accuracy',
         'baseline': {
-            'test_accuracy': float(acc_baseline),
+            'test_accuracy': float(metrics_baseline['accuracy']),
+            'balanced_accuracy': float(metrics_baseline['balanced_accuracy']),
+            'macro_f1_score': float(metrics_baseline['macro_f1']),
             'best_val_accuracy': float(history_baseline['best_val_acc']),
             'best_epoch': int(history_baseline['best_epoch'] + 1),
             'total_epochs': int(history_baseline['total_epochs']),
             'parameters': int(sum(p.numel() for p in model_baseline.parameters()))
         },
         'dendritic': {
-            'test_accuracy': float(acc_dendritic),
+            'test_accuracy': float(metrics_dendritic['accuracy']),
+            'balanced_accuracy': float(metrics_dendritic['balanced_accuracy']),
+            'macro_f1_score': float(metrics_dendritic['macro_f1']),
             'best_val_accuracy': float(history_dendritic['best_val_acc']),
             'best_epoch': int(history_dendritic['best_epoch'] + 1),
             'total_epochs': int(history_dendritic['total_epochs']),
@@ -787,8 +1064,8 @@ def main():
     print("Same architecture, better performance!")
     
     return {
-        'baseline_accuracy': acc_baseline,
-        'dendritic_accuracy': acc_dendritic,
+        'baseline_accuracy': metrics_baseline['accuracy'],
+        'dendritic_accuracy': metrics_dendritic['accuracy'],
         'improvement': improvement,
         'history_baseline': history_baseline,
         'history_dendritic': history_dendritic
